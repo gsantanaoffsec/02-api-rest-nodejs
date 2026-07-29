@@ -18,7 +18,7 @@ const envSchema = z.object({
 // verifica dentro de process.env, procurando se existe uma 'DATABASE_URL' pra verificar se é uma string e se não está vazia ou com valor incorreto
 const _env = envSchema.safeParse(process.env) // process.env - objeto que contém todas as variáveis de ambiente da aplicação
 
-if (_env.success == false) {
+if (_env.success === false) {
   console.error('Invalid enviroment variables!', _env.error.format())
 
   throw new Error('Invalid enviroment variables.')
