@@ -7,16 +7,20 @@ if (process.env.NODE_ENV === 'test') {
   config() // se não tiver a variável 'test', o config é executado sem passar nenhuma opção, ou seja, vai procurar a variável de ambiente no .env
 }
 
-// schema - nada mais é do que um formato de dado
+// schema - nada mais é do que um formato de dados
 // envSchema - diz exatamente como as variáveis devem ser
 const envSchema = z.object({
   // diz em qual ambiente a aplicação está rodando
   // developmente, test, production
   // quando a aplicação estiver executando sem informar a NODE_ENV, utiliza-se 'production' por padrão
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
   // apenas string é aceito
   DATABASE_URL: z.string(),
-  PORT: z.number().default(3333),
+  // não interessa o tipo do valor que recebido na porta,
+  // transfome isso em um número e se isso não retornar um valor válido, o default é 3333
+  // ou seja, coerce faz uma conversão
+  PORT: z.coerce.number().default(3333),
 })
 
 // safeParse() - compara process.env com envSchema
