@@ -1,8 +1,13 @@
-import 'dotenv/config' // lê o arquivo .env e expõe todos os valores dentro de uma variável global - process.env
+import { config } from 'dotenv' // lê o arquivo .env e expõe todos os valores dentro de uma variável global - process.env
 import { z } from 'zod'
 
-// schema - nada mais é do que um formato de dado
+if (process.env.NODE_ENV === 'test') {
+  config({ path: '.env.test' })
+} else {
+  config() // se não tiver a variável 'test', o config é executado sem passar nenhuma opção, ou seja, vai procurar a variável de ambiente no .env
+}
 
+// schema - nada mais é do que um formato de dado
 // envSchema - diz exatamente como as variáveis devem ser
 const envSchema = z.object({
   // diz em qual ambiente a aplicação está rodando
