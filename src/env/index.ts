@@ -30,7 +30,7 @@ const _env = envSchema.safeParse(process.env) // process.env - objeto que conté
 if (_env.success === false) {
   console.error('Invalid enviroment variables!', _env.error.format())
 
-  throw new Error('Invalid enviroment variables.')
+  throw new Error('Invalid enviroment variables!')
 }
 
 // exportação dos dados válidos apenas
